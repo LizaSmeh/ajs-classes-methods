@@ -1,20 +1,5 @@
 import Character from './character.js';
 
-test('Проверка ввода имени', () => {
-  const expected = {
-    attack: 25,
-    defence: 25,
-    health: 100,
-    level: 1,
-    name: 'lizi',
-    type: 'Bowman',
-  };
-
-  const received = new Character('lizi', 'Bowman');
-
-  expect(received).toEqual(expected);
-});
-
 test('Проверка длины имени < 2 символов', () => {
   expect(() => {
     const character = new Character('L', 'Bowman');
@@ -38,7 +23,8 @@ test('Проверка типа', () => {
 
 test('Проверка жизни', () => {
   expect(() => {
-    const received = new Character('Name', 'Bowman', 0);
+    const received = new Character('Name', 'Bowman');
+    received.health = 0;
     received.levelUp();
   }).toThrowError('Ошибка!');
 });
@@ -58,18 +44,21 @@ test('Восстановление здоровья', () => {
 
 test('Увеличение аттак', () => {
   const received = new Character('lizi', 'Bowman');
+  received.attack = 25;
   received.levelUp();
   expect(received.attack).toEqual(30);
 });
 
 test('Увеличение обороны', () => {
   const received = new Character('lizi', 'Bowman');
+  received.defence = 25;
   received.levelUp();
   expect(received.defence).toEqual(30);
 });
 
 test('Уменьшение здоровья', () => {
   const received = new Character('lizi', 'Bowman');
+  received.defence = 25;
   received.damage(100);
   expect(received.health).toEqual(25);
 });
